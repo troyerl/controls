@@ -1,7 +1,7 @@
 <template>
   <div class="control-messages">
     <div :key="message" class="message-container" v-for="message in defaultMessages">
-      <button class="button">{{message}}</button>
+      <button class="button" @click="setMessage">{{message}}</button>
     </div>
   </div>
 </template>
@@ -9,6 +9,7 @@
 <script>
 export default {
   name: 'ControlMessages',
+  props: ['setMessage'],
   data() {
     return {
       defaultMessages: [

@@ -5,6 +5,7 @@
       :player-vars="playerVars"
       width="100%"
       ref="youtube"
+      :video-id="videoId"
     ></youtube>
   </div>
 </template>
@@ -12,10 +13,12 @@
 <script>
 export default {
   name: 'videoPlayer',
+  props: ['togglePlayer'],
   data() {
     return {
       firstTimePlayed: true,
-      videos: [],
+      videoId: 'xe2FPP4lX14',
+      videos: ['https://www.youtube.com/watch?v=xe2FPP4lX14'],
       playerVars: {
         modestbranding: 1,
         showinfo: 0,
@@ -23,14 +26,27 @@ export default {
         rel: 0,
         constrols: 0,
         disablekb: 1,
+        muted: true
       },
     };
+  },
+  watch: {
+    togglePlayer: function(newVal) { // watch it
+      if (newVal) {
+        this.playVideo();
+      } else {
+        this.stopVideo();
+      }
+    }
   },
   methods: {
     playVideo() {
       if (this.firstTimePlayed) {
-        this.$refs.youtube.player.loadPlaylist(this.videos);
-        this.$refs.youtube.player.setLoop(true);
+        this.player.mute();
+        // this.$refs.youtube.player.loadPlaylist(this.videos);
+        // this.$refs.youtube.player.setLoop(true);
+        this.$refs.youtube.player.playVideo();
+
         this.firstTimePlayed = false;
       } else {
         this.$refs.youtube.player.playVideo();

@@ -1,7 +1,16 @@
 <template>
   <div>
-    <VideoPlayer v-show="showVideoPlayer"/>
-    <ControlMessages v-if="!showVideoPlayer"/>
+    <VideoPlayer v-show="showVideoPlayer" :togglePlayer="playing"/>
+    <ControlMessages v-if="!showVideoPlayer" :setMessage="setMessage"/>
+    <div
+      v-if="message"
+      class="d-flex w-100 align-items-center justify-content-center"
+      style="position: fixed; bottom: 5rem;"
+    >
+      <div class="message d-flex align-content-center justify-content-center">
+        <p class="text-center">{{ message }}</p>
+      </div>
+    </div>
     <div class="controls">
       <div class="control-buttons" @click="toggleShowPlayer"><b-icon-arrow-left class="mr-2" v-if="!showVideoPlayer"></b-icon-arrow-left>{{showVideoPlayer ? '' : 'Controls'}}</div>
       <div class="control-buttons center-control" @click="centerControl">{{showVideoPlayer ? playPauseText : 'Custom Message'}}</div>
@@ -23,7 +32,8 @@ export default {
   data() {
     return {
       showVideoPlayer: true,
-      playing: false
+      playing: false,
+      message: ''
     }
   },
   computed: {
@@ -34,6 +44,13 @@ export default {
   methods: {
     toggleShowPlayer() {
       this.showVideoPlayer = !this.showVideoPlayer;
+    },
+    setMessage(e) {
+      this.toggleShowPlayer();
+      this.message = e.target.innerText;
+      setTimeout(() => {
+          this.message = '';
+        }, 15 * 1000);
     },
     centerControl() {
       if (this.showVideoPlayer) {
@@ -72,5 +89,20 @@ export default {
 .center-control {
   border-left: 1px solid white;
   border-right: 1px solid white;
+}
+
+.message {
+  width: 50vw;
+  height: auto;
+  background-color: black;
+  overflow-wrap: break-word;
+  opacity: 0.85;
+  filter: alpha(opacity=85);
+  color: white;
+  bottom: 50rem;
+  z-index: 2;
+}
+.message p {
+  font-size: 1.5rem;
 }
 </style>
