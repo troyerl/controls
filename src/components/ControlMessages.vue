@@ -1,10 +1,7 @@
 <template>
   <div class="control-messages">
     <div :key="message" class="message-container" v-for="message in defaultMessages">
-      <div class="neumorphic variation2" @click="setMessage">
-        <span><strong>{{message}}</strong></span>
-      </div>
-      <!-- <button class="neumorphic variation2" @click="setMessage">{{message}}</button> -->
+      <button class="button" @click="setMessage">{{message}}</button>
     </div>
   </div>
 </template>
@@ -39,7 +36,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 12vh;
-  background: #C7CED4;
 }
 .message-container {
   width: 33.33vw;
@@ -47,51 +43,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
-.neumorphic {
-  box-shadow: 12px 12px 24px 0 rgba(0, 0, 0, 0.2),
-    -12px -12px 24px 0 rgba(255, 255, 255, 0.5);
-  font-size: 5rem;
-  width: 80%;
-  height: 80%;
-  border-radius: 40px;
-  overflow: hidden;
-  padding: 1.3rem;
-  display: flex;
-}
-
-.variation2 {
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-}
-
-.variation2 span {
-  display: block;
-  padding-bottom: 1.5rem;
-  position: relative;
-  font-size: 1.25rem;
-}
-
-.variation2 span::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: block;
-  height: 0.3rem;
-  border-radius: 1rem;
-  width: 50%;
-  margin: 0 auto;
-  background-color: currentColor;
-}
-
-.variation2.pressed {
-  color: #5ab9ea;
-}
-
-/* .button {
+.button {
   display: inline-block;
   text-decoration: none;
   color: #fff;
@@ -149,5 +101,5 @@ export default {
 
 .button:focus {
   outline: none;
-} */
+}
 </style>
