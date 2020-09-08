@@ -51,7 +51,7 @@ export default {
   background-color: #538fbe;
   height: 90%;
   width: 90%;
-  font-size: 1rem;
+  font-size: 1.15rem;
   border: 1px solid #2d6898;
   background-image: linear-gradient(to bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
   background-image: -o-linear-gradient(to bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
