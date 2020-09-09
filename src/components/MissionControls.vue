@@ -13,7 +13,7 @@
     </div>
     <div class="controls">
       <div class="control-buttons" @click="toggleShowPlayer"><b-icon-chevron-double-left class="mr-2 mt-1" v-if="!showVideoPlayer"></b-icon-chevron-double-left>{{showVideoPlayer ? '' : 'Controls'}}</div>
-      <div class="control-buttons center-control" @click="centerControl"><b-icon-play-fill v-if="!playing && showVideoPlayer" class="mb-n1"/> <b-icon-pause-fill v-else-if="playing && showVideoPlayer" class="mb-n1"/> <b-icon-chat-dots-fill v-else class="mb-n2"/>{{showVideoPlayer ? playPauseText : 'Custom Message'}}</div>
+      <div class="control-buttons center-control" @click="centerControl"><b-icon-play-fill v-if="!playing && showVideoPlayer" class="mb-n1"/> <b-icon-pause-fill v-else-if="playing && showVideoPlayer" class="mb-n1"/> <b-icon-chat-dots-fill v-else class="mb-n1"/>{{showVideoPlayer ? playPauseText : 'Custom Message'}}</div>
       <div class="control-buttons" @click="toggleShowPlayer">{{showVideoPlayer ? 'Messages' : ''}} <b-icon-chevron-double-right class="ml-2 mt-1" v-if="showVideoPlayer"></b-icon-chevron-double-right></div>
     </div>
   </div>
