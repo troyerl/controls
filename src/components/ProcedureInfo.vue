@@ -32,7 +32,7 @@
     <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select>
     <div class="controls">
       <div class="control-buttons"></div>
-      <div class="control-buttons center-control"><b-button type="submit" class="start-session">Start Session</b-button></div>
+      <div class="control-buttons center-control"><b-button type="submit" class="start-session"><b-icon-tv></b-icon-tv> Start Session</b-button></div>
       <div class="control-buttons"></div>
     </div>
   </form>
@@ -90,6 +90,10 @@ export default {
     height: 100%;
     background: none;
     border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .btn-secondary {

@@ -12,9 +12,9 @@
       </div>
     </div>
     <div class="controls">
-      <div class="control-buttons" @click="toggleShowPlayer"><b-icon-arrow-left class="mr-2" v-if="!showVideoPlayer"></b-icon-arrow-left>{{showVideoPlayer ? '' : 'Controls'}}</div>
-      <div class="control-buttons center-control" @click="centerControl">{{showVideoPlayer ? playPauseText : 'Custom Message'}}</div>
-      <div class="control-buttons" @click="toggleShowPlayer">{{showVideoPlayer ? 'Messages' : ''}} <b-icon-arrow-right class="ml-2" v-if="showVideoPlayer"></b-icon-arrow-right></div>
+      <div class="control-buttons" @click="toggleShowPlayer"><b-icon-chevron-double-left class="mr-2 mt-1" v-if="!showVideoPlayer"></b-icon-chevron-double-left>{{showVideoPlayer ? '' : 'Controls'}}</div>
+      <div class="control-buttons center-control" @click="centerControl"><b-icon-play-fill v-if="!playing && showVideoPlayer" class="mb-n2"/> <b-icon-pause-fill v-else-if="playing && showVideoPlayer" class="mb-n2"/> <b-icon-chat-dots-fill v-else class="mb-n2"/>{{showVideoPlayer ? playPauseText : 'Custom Message'}}</div>
+      <div class="control-buttons" @click="toggleShowPlayer">{{showVideoPlayer ? 'Messages' : ''}} <b-icon-chevron-double-right class="ml-2 mt-1" v-if="showVideoPlayer"></b-icon-chevron-double-right></div>
     </div>
   </div>
 </template>
@@ -89,6 +89,10 @@ export default {
 .center-control {
   border-left: 1px solid white;
   border-right: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .message {
