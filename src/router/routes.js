@@ -1,5 +1,4 @@
 export default {
-  startSession: '/',
-  procedureInfo: '/procedure-info',
+  procedureInfo: '/',
   missionControls: '/mission-controls'
 }
