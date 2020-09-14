@@ -1,11 +1,18 @@
 <template>
   <form @submit.prevent="onSubmit" class="procedure-info">
     <h4>Procedure Type:</h4>
-    <b-form-select v-model="procedureSelect" :options="procedureTypes" class="w-50 mt-1"></b-form-select>
+    <div class="icon-list mt-3">
+        <div class="d-flex flex-column align-items-center" :key="type.id" v-for="type in procedureTypes">
+          <div :class="(procedureSelect === type.id ? 'clicked' : '') + ' test1'" @click="procedureSelect = type.id">
+            <img class="procedure-icon svg" :src="'assets/svg/' + (procedureSelect === type.id ? 'clicked-' : '') +  type.svg"/>
+          </div>
+          <p class="mb-0">{{type.text}}</p>
+        </div>
+    </div>
 
     <hr>
 
-    <h4 class="mt-2">Procedure Number:</h4>
+    <h4>Procedure Number:</h4>
     <div class="d-flex justify-content-center align-items-center align-content-center text-center">
       <b-form-input
         type="number"
@@ -30,6 +37,15 @@
 
     <h4>Select Playlist:</h4>
     <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select>
+    <!-- <div class="d-flex justify-content-center my-3">
+      <div :key="playlist.value" v-for="(playlist, idx) in playlistList" >
+        <button v-if="idx < 4" type="button" class="ml-3 dot">{{playlist.text}}</button>
+      </div>
+      <button class="ml-3 dot" type="button">Other</button>
+    </div> -->
+    
+    
+    <!-- <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select> -->
     <div class="controls">
       <div class="control-buttons"></div>
       <div class="control-buttons center-control"><b-button type="submit" class="start-session"><b-icon-tv></b-icon-tv> Start Session</b-button></div>
@@ -45,29 +61,34 @@ export default {
     return {
       procedureSelect: null,
       procedureTypes: [
-        { value: null, text: 'Please select a procedure type' },
-        { value: 'bone cancer', text: 'Bone Cancer' },
-        { value: 'reducing tumor', text: 'Reducing Tumor' },
-        { value: 'brain caner', text: 'Brain Cancer' },
-        { value: 'lung cancer', text: 'Lung Cancer' },
+        {id: 'head', svg: 'head.svg', text: 'Head'},
+        {id: 'chest', svg: 'chest.svg', text: 'Chest'},
+        {id: 'abdomen', svg: 'abdomen.svg', text: 'Abdomen'},
+        {id: 'extremeties', svg: 'extremeties.svg', text: 'Extremeties'},
+        {id: 'other', svg: 'other.svg', text: 'Other'},
       ],
       playlistSelect: null,
       playlistList: [
-        { value: null, text: 'Please select a playlist' },
+        { value: null, text: 'Please select a playlist'},
         { value: 'superhero', text: 'Superhero' },
         { value: 'princess', text: 'Princess' },
         { value: 'twitch', text: 'Twitch' },
-        { value: 'peppa the pig', text: 'Peppe the Pig' },
-        { value: 'live news', text: 'Live News' }
+        { value: 'peppa the pig', text: 'Peppa the Pig' },
+        { value: 'live news', text: 'Live News' },
+        { value: 'other', text: 'Other' },
       ],
       procedureNum: null,
-      totalProcedures: null
+      totalProcedures: null,
+      error: null
     }
   },
   methods: {
     onSubmit() {
+      this.error = null;
       if (this.procedureSelect && this.procedureTypes) {
         this.$router.push({name: 'missionControls'});
+      } else {
+        this.error = 'Missing required info to begin';
       }
     }
   }
@@ -125,5 +146,47 @@ export default {
   .center-control {
     border-left: 1px solid white;
     border-right: 1px solid white;
+  }
+
+  .dot {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 11px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    background: red;
+    border: 1px solid red;
+    word-wrap: break-word;
+  }
+
+  .icon-list {
+    display: flex;
+    justify-content: space-between;
+    width: 60% !important;
+  }
+
+  .procedure-icon {
+    width: 70%;
+    height: 70%;
+  }
+
+  .test1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 4px solid black;
+  }
+
+  .clicked {
+    background: #3AB5F1;
+  }
+
+  .svg {
+    color: white;
   }
 </style>
