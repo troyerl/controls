@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit" class="procedure-info">
-    <h5 class="mb-0">Procedure Type:</h5>
-    <div class="icon-list mt-2">
+    <h5 class="mb-0 mt-3 mb-2">Procedure Type:</h5>
+    <div class="icon-list">
       <div :key="type.text" v-for="type in procedureTypes">
         <b-card class="procedure-card1 ml-2" @click="procedureSelect = type.id">
           <div class="w-100 d-flex justify-content-center">
@@ -16,7 +16,7 @@
 
     <div class="w-100 d-flex justify-content-center mt-4">
       <div class="w-50 text-center border-right d-flex flex-column justify-content-center">
-        <h5>Procedure Number:</h5>
+        <h5 class="mb-0">Procedure Number:</h5>
         <div class="d-flex  justify-content-center align-items-center align-content-center text-center">
           <b-form-input
             type="number"
@@ -139,7 +139,7 @@ export default {
   }
 
   .procedure-info {
-    min-height: 100vh;
+    min-height: 90vh;
     width: 100vw;
     background: #F7FBFF;
     display: flex;
