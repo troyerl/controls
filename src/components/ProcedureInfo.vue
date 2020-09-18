@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit" class="procedure-info">
     <h5 class="mb-0">Procedure Type:</h5>
-    <div class="icon-list mt-3">
+    <div class="icon-list mt-2">
       <div :key="type.text" v-for="type in procedureTypes">
         <b-card class="procedure-card1 ml-2" @click="procedureSelect = type.id">
           <div class="w-100 d-flex justify-content-center">
@@ -116,6 +116,9 @@ export default {
 </script>
 
 <style>
+  .card-body {
+    padding: 1rem !important;
+  }
   .language-icon {
     width: 50px;
     height: 50px;
