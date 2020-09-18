@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit" class="procedure-info">
+  <form class="procedure-info">
     <b-card class="shadow-sm w-75">
       <p class="mb-2 text-center font-weight-bold mt-n1">Procedure Type</p>
 
@@ -31,19 +31,22 @@
         <b-card class="w-75 shadow-sm">
           <p class="mb-2 text-center font-weight-bold">Procedure Number</p>
           <div class="d-flex  justify-content-center align-items-center align-content-center text-center">
+
+  
             <b-form-input
               type="number"
               required
-              placeholder="Proc. #"
+              placeholder="1"
               class="procedure-input text-center"
               v-model="procedureNum"
               min="0"
             ></b-form-input>
+
             <p class="mx-2 pt-3">out of</p>
             <b-form-input
               type="number"
               required
-              placeholder="Total Proc."
+              placeholder="19"
               class="procedure-input text-center"
               v-model="totalProcedures"
               min="0"
@@ -78,9 +81,16 @@
 
     <div class="procedure-controls">
       <div class="control-buttons"></div>
-      <div class="control-buttons center-control"><b-button type="submit" class="start-session"><b-icon-tv></b-icon-tv> Start Session</b-button></div>
+      <div class="control-buttons center-control"><b-button type="button" @click="onSubmit" class="start-session"><b-icon-tv></b-icon-tv> Start Session</b-button></div>
       <div class="control-buttons"></div>
     </div>
+    <b-modal v-model="showError" hide-footer hide-header centered>
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <h2 class="text-red">Oops!</h2>
+        <span>{{error}}</span>
+        <b-button @click="showError = false" style="background: #981e32; color: white; width: 40%;" variant="#981e32" class="mt-3 mb-2"><b-icon-x></b-icon-x>Close</b-button>
+      </div>
+    </b-modal>
   </form>
 </template>
 
@@ -106,7 +116,7 @@ export default {
         { value: 'live news', text: 'Live News' },
       ],
       procedureNum: null,
-      totalProcedures: 19,
+      totalProcedures: null,
       languageOptions: [
         { text: 'English', svg: 'english.svg', value: 'en' },
         { text: 'Spanish', svg: 'spanish.svg', value: 'es' },
@@ -114,16 +124,24 @@ export default {
         { text: 'Arabic', svg: 'arabic.svg', value: 'ar' },
       ],
       selectedLanugage: 0,
+      showError: false,
       error: null
     }
   },
   methods: {
     onSubmit() {
       this.error = null;
-      if (this.procedureSelect && this.procedureTypes) {
+      if (this.procedureSelect && this.procedureTypes && this.playlistSelect && this.procedureNum && this.totalProcedures) {
+        if (!this.procedureNum) {
+          this.procedureNum = 1;
+        }
+        if (!this.totalProcedures) {
+          this.totalProcedures = 19;
+        }
         this.$router.push({name: 'missionControls'});
       } else {
-        this.error = 'Missing required info to begin';
+        this.error = 'Missing required info to begin procedure';
+        this.showError = true;
       }
     },
     plusSlides(slideChoice) {
