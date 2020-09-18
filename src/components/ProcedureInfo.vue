@@ -1,6 +1,18 @@
 <template>
   <form @submit.prevent="onSubmit" class="procedure-info">
-    <h5 class="mb-0 mb-2">Procedure Type:</h5>
+    <b-card class="shadow-sm w-75">
+      <p class="mb-2 text-center font-weight-bold mt-n1">Procedure Type</p>
+
+      <div class="d-flex mb-2 ">
+        <div @click="procedureSelect = type.id" :key="type.text" v-for="(type, idx) in procedureTypes" :class="(idx !== procedureTypes.length - 1 ? 'border-right ' : '') + 'procedure-div d-flex flex-column justify-content-center align-items-center'">
+          <div :class="(procedureSelect === type.id ? 'clicked' : '') + ' test1'">
+            <img class="procedure-icon svg" :src="'assets/svg/' + (procedureSelect === type.id ? 'clicked-' : '') +  type.svg"/>
+          </div>
+          <p class="mb-0 text-center">{{type.text}}</p>
+        </div>
+      </div>
+    </b-card>
+    <!-- <h5 class="mb-0 mb-2">Procedure Type:</h5>
     <div class="icon-list">
       <div :key="type.text" v-for="type in procedureTypes">
         <b-card class="procedure-card1 ml-2 shadow-sm" @click="procedureSelect = type.id">
@@ -12,12 +24,12 @@
           <p class="mb-0 text-center">{{type.text}}</p>
         </b-card>
       </div>
-    </div>
+    </div> -->
 
-    <div class="w-100 d-flex justify-content-center mt-4">
+    <div class="w-100 d-flex justify-content-center mt-3">
       <div class="w-50 text-center border-right d-flex flex-column justify-content-center align-items-center">
         <b-card class="w-75 shadow-sm">
-          <p class="mb-2 text-center font-weight-bold">Procedure Number:</p>
+          <p class="mb-2 text-center font-weight-bold">Procedure Number</p>
           <div class="d-flex  justify-content-center align-items-center align-content-center text-center">
             <b-form-input
               type="number"
@@ -55,10 +67,8 @@
       </div>
     </div>
 
-    <!-- <h5 class="mb-0 mt-3">Select Playlist:</h5>
-    <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select> -->
     <b-card class="mt-3 shadow-sm">
-      <p class="mb-1 text-center font-weight-bold">Select Playlist</p>
+      <p class="mb-2 text-center font-weight-bold">Select Playlist</p>
 
       <b-button-group class="mb-1 mx-3">
         <b-button @click="playlistSelect = playlist.value" :variant="playlistSelect === playlist.value ? 'dark' : 'outline-dark'" :style="idx < 4 ? '' : 'display: none;'" :key="playlist.value" v-for="(playlist, idx) in playlistList">{{playlist.text}}</b-button>
@@ -117,13 +127,21 @@ export default {
       }
     },
     plusSlides(slideChoice) {
-      this.selectedLanugage = (this.selectedLanugage + slideChoice) % this.languageOptions.length;
+      this.selectedLanugage = this.selectedLanugage + slideChoice;
+      if (this.selectedLanugage < 0) {
+        this.selectedLanugage = this.languageOptions.length - 1;
+      } else if (this.selectedLanugage > this.languageOptions.length - 1) {
+        this.selectedLanugage = 0;
+      }
     }
   }
 }
 </script>
 
 <style>
+  .procedure-div {
+    width: 20% !important;
+  }
   .procedure-input {
     width: 37% !important;
   }
