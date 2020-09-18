@@ -56,7 +56,7 @@
     <h5 class="mb-0 mt-3">Select Playlist:</h5>
     <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select>
 
-    <div class="controls">
+    <div class="procedure-controls">
       <div class="control-buttons"></div>
       <div class="control-buttons center-control"><b-button type="submit" class="start-session"><b-icon-tv></b-icon-tv> Start Session</b-button></div>
       <div class="control-buttons"></div>
@@ -163,13 +163,13 @@ export default {
     background: none !important;
   }
 
-  .controls {
+  .procedure-controls {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100vw;
     height: 10vh;
-    background: #3AB5F1;
+    background: #981e32;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -214,7 +214,7 @@ export default {
   }
 
   .clicked {
-    background: #3AB5F1;
+    background: #981e32;
   }
 
   .svg {

@@ -70,7 +70,7 @@ export default {
   bottom: 0;
   width: 100vw;
   height: 10vh;
-  background: #3AB5F1;
+  background: #981e32;
   display: flex;
   justify-content: center;
   align-items: center;
