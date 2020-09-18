@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="onSubmit" class="procedure-info">
-    <h5 class="mb-0 mt-3 mb-2">Procedure Type:</h5>
+    <h5 class="mb-0 mb-2">Procedure Type:</h5>
     <div class="icon-list">
       <div :key="type.text" v-for="type in procedureTypes">
-        <b-card class="procedure-card1 ml-2" @click="procedureSelect = type.id">
+        <b-card class="procedure-card1 ml-2 shadow-sm" @click="procedureSelect = type.id">
           <div class="w-100 d-flex justify-content-center">
             <div :class="(procedureSelect === type.id ? 'clicked' : '') + ' test1'">
               <img class="procedure-icon svg" :src="'assets/svg/' + (procedureSelect === type.id ? 'clicked-' : '') +  type.svg"/>
@@ -15,31 +15,33 @@
     </div>
 
     <div class="w-100 d-flex justify-content-center mt-4">
-      <div class="w-50 text-center border-right d-flex flex-column justify-content-center">
-        <h5 class="mb-0">Procedure Number:</h5>
-        <div class="d-flex  justify-content-center align-items-center align-content-center text-center">
-          <b-form-input
-            type="number"
-            required
-            placeholder="Proc. #"
-            class="w-25"
-            v-model="procedureNum"
-            min="0"
-          ></b-form-input>
-          <p class="mx-3 pt-3">out of</p>
-          <b-form-input
-            type="number"
-            required
-            placeholder="Total Proc."
-            class="w-25 text-center"
-            v-model="totalProcedures"
-            min="0"
-          ></b-form-input>
-        </div>
+      <div class="w-50 text-center border-right d-flex flex-column justify-content-center align-items-center">
+        <b-card class="w-75 shadow-sm">
+          <p class="mb-2 text-center font-weight-bold">Procedure Number:</p>
+          <div class="d-flex  justify-content-center align-items-center align-content-center text-center">
+            <b-form-input
+              type="number"
+              required
+              placeholder="Proc. #"
+              class="procedure-input text-center"
+              v-model="procedureNum"
+              min="0"
+            ></b-form-input>
+            <p class="mx-2 pt-3">out of</p>
+            <b-form-input
+              type="number"
+              required
+              placeholder="Total Proc."
+              class="procedure-input text-center"
+              v-model="totalProcedures"
+              min="0"
+            ></b-form-input>
+          </div>
+        </b-card>
       </div>
 
       <div class="w-50 d-flex flex-column justify-content-center align-items-center">
-        <b-card class="w-50 ">
+        <b-card class="w-50 shadow-sm">
           <p class="mb-2 text-center font-weight-bold">Patient Language</p>
           <div class="d-flex justify-content-between align-items-center">
             <span class="prev" @click="plusSlides(-1)">&#10094;</span>
@@ -53,8 +55,16 @@
       </div>
     </div>
 
-    <h5 class="mb-0 mt-3">Select Playlist:</h5>
-    <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select>
+    <!-- <h5 class="mb-0 mt-3">Select Playlist:</h5>
+    <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select> -->
+    <b-card class="mt-3 shadow-sm">
+      <p class="mb-1 text-center font-weight-bold">Select Playlist</p>
+
+      <b-button-group class="mb-1 mx-3">
+        <b-button @click="playlistSelect = playlist.value" :variant="playlistSelect === playlist.value ? 'dark' : 'outline-dark'" :style="idx < 4 ? '' : 'display: none;'" :key="playlist.value" v-for="(playlist, idx) in playlistList">{{playlist.text}}</b-button>
+        <b-button @click="playlistSelect = null" variant="outline-dark">Other</b-button>
+      </b-button-group>
+    </b-card>
 
     <div class="procedure-controls">
       <div class="control-buttons"></div>
@@ -79,13 +89,11 @@ export default {
       ],
       playlistSelect: null,
       playlistList: [
-        { value: null, text: 'Please select a playlist'},
         { value: 'superhero', text: 'Superhero' },
         { value: 'princess', text: 'Princess' },
         { value: 'twitch', text: 'Twitch' },
         { value: 'peppa the pig', text: 'Peppa the Pig' },
         { value: 'live news', text: 'Live News' },
-        { value: 'other', text: 'Other' },
       ],
       procedureNum: null,
       totalProcedures: 19,
@@ -116,8 +124,11 @@ export default {
 </script>
 
 <style>
+  .procedure-input {
+    width: 37% !important;
+  }
   .card-body {
-    padding: 1rem !important;
+    padding: 0.75rem !important;
   }
   .language-icon {
     width: 50px;
