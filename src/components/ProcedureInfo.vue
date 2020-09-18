@@ -1,51 +1,61 @@
 <template>
   <form @submit.prevent="onSubmit" class="procedure-info">
-    <h4>Procedure Type:</h4>
+    <h5 class="mb-0">Procedure Type:</h5>
     <div class="icon-list mt-3">
-        <div class="d-flex flex-column align-items-center" :key="type.id" v-for="type in procedureTypes">
-          <div :class="(procedureSelect === type.id ? 'clicked' : '') + ' test1'" @click="procedureSelect = type.id">
-            <img class="procedure-icon svg" :src="'assets/svg/' + (procedureSelect === type.id ? 'clicked-' : '') +  type.svg"/>
+      <div :key="type.text" v-for="type in procedureTypes">
+        <b-card class="procedure-card1 ml-2" @click="procedureSelect = type.id">
+          <div class="w-100 d-flex justify-content-center">
+            <div :class="(procedureSelect === type.id ? 'clicked' : '') + ' test1'">
+              <img class="procedure-icon svg" :src="'assets/svg/' + (procedureSelect === type.id ? 'clicked-' : '') +  type.svg"/>
+            </div>
           </div>
-          <p class="mb-0">{{type.text}}</p>
-        </div>
-    </div>
-
-    <hr>
-
-    <h4>Procedure Number:</h4>
-    <div class="d-flex justify-content-center align-items-center align-content-center text-center">
-      <b-form-input
-        type="number"
-        required
-        placeholder="Proc. #"
-        class="w-25"
-        v-model="procedureNum"
-        min="0"
-      ></b-form-input>
-      <p class="mx-3 pt-3">out of</p>
-      <b-form-input
-        type="number"
-        required
-        placeholder="Total Proc."
-        class="w-25 text-center"
-        v-model="totalProcedures"
-        min="0"
-      ></b-form-input>
-    </div>
-
-    <hr>
-
-    <h4>Select Playlist:</h4>
-    <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select>
-    <!-- <div class="d-flex justify-content-center my-3">
-      <div :key="playlist.value" v-for="(playlist, idx) in playlistList" >
-        <button v-if="idx < 4" type="button" class="ml-3 dot">{{playlist.text}}</button>
+          <p class="mb-0 text-center">{{type.text}}</p>
+        </b-card>
       </div>
-      <button class="ml-3 dot" type="button">Other</button>
-    </div> -->
-    
-    
-    <!-- <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select> -->
+    </div>
+
+    <div class="w-100 d-flex justify-content-center mt-4">
+      <div class="w-50 text-center border-right d-flex flex-column justify-content-center">
+        <h5>Procedure Number:</h5>
+        <div class="d-flex  justify-content-center align-items-center align-content-center text-center">
+          <b-form-input
+            type="number"
+            required
+            placeholder="Proc. #"
+            class="w-25"
+            v-model="procedureNum"
+            min="0"
+          ></b-form-input>
+          <p class="mx-3 pt-3">out of</p>
+          <b-form-input
+            type="number"
+            required
+            placeholder="Total Proc."
+            class="w-25 text-center"
+            v-model="totalProcedures"
+            min="0"
+          ></b-form-input>
+        </div>
+      </div>
+
+      <div class="w-50 d-flex flex-column justify-content-center align-items-center">
+        <b-card class="w-50 ">
+          <p class="mb-2 text-center font-weight-bold">Patient Language</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="prev" @click="plusSlides(-1)">&#10094;</span>
+            <div class="d-flex flex-column align-items-center">
+              <img class="language-icon" :src="'assets/svg/lang/' + languageOptions[selectedLanugage].svg" :alt="languageOptions[selectedLanugage].text">
+              <p class="mb-0">{{languageOptions[selectedLanugage].text}}</p>
+            </div>
+            <span class="next" @click="plusSlides(1)">&#10095;</span>
+          </div>
+        </b-card>
+      </div>
+    </div>
+
+    <h5 class="mb-0 mt-3">Select Playlist:</h5>
+    <b-form-select v-model="playlistSelect" :options="playlistList" class="w-50 mt-1 mb-5"></b-form-select>
+
     <div class="controls">
       <div class="control-buttons"></div>
       <div class="control-buttons center-control"><b-button type="submit" class="start-session"><b-icon-tv></b-icon-tv> Start Session</b-button></div>
@@ -78,7 +88,14 @@ export default {
         { value: 'other', text: 'Other' },
       ],
       procedureNum: null,
-      totalProcedures: null,
+      totalProcedures: 19,
+      languageOptions: [
+        { text: 'English', svg: 'english.svg', value: 'en' },
+        { text: 'Spanish', svg: 'spanish.svg', value: 'es' },
+        { text: 'Burmese', svg: 'burmese.svg', value: 'my' },
+        { text: 'Arabic', svg: 'arabic.svg', value: 'ar' },
+      ],
+      selectedLanugage: 0,
       error: null
     }
   },
@@ -90,12 +107,34 @@ export default {
       } else {
         this.error = 'Missing required info to begin';
       }
+    },
+    plusSlides(slideChoice) {
+      this.selectedLanugage = (this.selectedLanugage + slideChoice) % this.languageOptions.length;
     }
   }
 }
 </script>
 
 <style>
+  .language-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .procedure-card {
+    width: 13vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .procedure-card1 {
+    width: 15vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
   .procedure-info {
     min-height: 100vh;
     width: 100vw;
@@ -146,25 +185,14 @@ export default {
   .center-control {
     border-left: 1px solid white;
     border-right: 1px solid white;
-  }
-
-  .dot {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    font-size: 11px;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    background: red;
-    border: 1px solid red;
-    word-wrap: break-word;
+    font-family: bold,sans-serif;
+    font-weight: 400;
   }
 
   .icon-list {
     display: flex;
-    justify-content: space-between;
-    width: 60% !important;
+    justify-content: center;
+    width: 90% !important;
   }
 
   .procedure-icon {
@@ -176,8 +204,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 4px solid black;
   }
