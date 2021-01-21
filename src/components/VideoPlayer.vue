@@ -30,7 +30,7 @@ export default {
     return {
       firstTimePlayed: true,
       videoId: 'xe2FPP4lX14',
-      videos: ['https://www.youtube.com/watch?v=xe2FPP4lX14'],
+      videos: ['https://www.youtube.com/watch?v=ZLX3YoFYg1k'],
       playerVars: {
         modestbranding: 1,
         showinfo: 0,
