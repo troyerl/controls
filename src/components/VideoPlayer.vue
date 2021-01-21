@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       firstTimePlayed: true,
-      videoId: 'xe2FPP4lX14',
+      videoId: 'ZLX3YoFYg1k',
       videos: ['https://www.youtube.com/watch?v=ZLX3YoFYg1k'],
       playerVars: {
         modestbranding: 1,
